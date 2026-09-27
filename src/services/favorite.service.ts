@@ -1,10 +1,16 @@
 import * as favoriteRepository from "@/repositories/favorite.repository";
 import * as productRepository from "@/repositories/product.repository";
 
+// attach product images to a favorite
+const attachImages = async (item: Awaited<ReturnType<typeof favoriteRepository.findFavoritesByUser>>[number]) => {
+    const images = await productRepository.findProductsImages(item.product_id);
+    return { ...item, images: images?.map((img) => img.url) ?? [] };
+};
 
 // get the requester's fav
 export const getFavorites = async (userId: number) => {
-    return favoriteRepository.findFavoritesByUser(userId);
+    const items = await favoriteRepository.findFavoritesByUser(userId);
+    return Promise.all(items.map(attachImages));
 };
 
 // add a product to fav 

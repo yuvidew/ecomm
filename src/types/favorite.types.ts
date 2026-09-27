@@ -13,6 +13,7 @@ export interface FavoriteWithProductRow extends FavoriteRow {
     slug: string;
     price: string;
     stock: number;
+    description: string | null;
 }
 
 export const addFavoriteSchema = z.object({

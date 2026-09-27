@@ -5,7 +5,7 @@ import { ResultSetHeader } from "mysql2";
 // find a user's full cart, joined with product info
 export const findCartByUser = async (userId: number): Promise<CartItemWithProductRow[]> => {
     const [rows] = await pool.query<CartItemWithProductRow[]>(
-        `SELECT cart_items.*, products.name, products.slug, product.price, products.stock
+        `SELECT cart_items.*, products.name, products.slug, products.description, products.price, products.stock
         FROM cart_items
         JOIN products ON products.id = cart_items.product_id
         WHERE cart_items.user_id = ?
@@ -39,7 +39,7 @@ export const findCartItemById = async (id: number): Promise<CartItemRow | null> 
 // insert a new cart items
 export const createCartItems = async (userId: number, produtId : number, quantity: number): Promise<number> => {
     const [result] = await pool.query<ResultSetHeader>(
-        "INSERT INTO cart_items (user_id, product_id, quanticty) VALUES (?, ?, ?)",
+        "INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)",
         [userId, produtId, quantity]
     );
 

@@ -16,6 +16,7 @@ export interface CartItemWithProductRow extends CartItemRow {
     slug: string;
     price: string;
     stock: number;
+    description: string | null;
 }
 
 export const addToCartSchema = z.object({
