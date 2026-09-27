@@ -11,7 +11,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "seed:categories": "tsx src/seed/seed-categories.ts",
-    "seed:products": "tsx src/seed/seed-products.ts"
+    "seed:products": "tsx src/seed/seed-products.ts",
+    "seed:reviews": "tsx src/seed/seed-reviews.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

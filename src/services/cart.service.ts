@@ -2,12 +2,24 @@ import * as cartRepository from "@/repositories/cart.repository";
 import * as productRepository from "@/repositories/product.repository";
 import { AddToCartType, UpdateCartItemType } from "@/types/cart.types";
 
+// attach product images to cart item
+const attachImages = async (item:Awaited<ReturnType<typeof cartRepository.findCartByUser>>[number]) => {
+    const images = await productRepository.findProductsImages(item.product_id);
+
+    return {
+        ...item,
+        images: images?.map((img) => img.url) ?? []
+    };
+};
+
+
 // get the requester's full cart
 export const getCart = async (userId : number) => {
     const items = await cartRepository.findCartByUser(userId);
+    const withImages = await Promise.all(items.map(attachImages))
     const total = items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
 
-    return {items, total};
+    return {items: withImages, total};
 };
 
 // add a product to the cartm or increment its auantity if it it's already there

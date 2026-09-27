@@ -5,7 +5,7 @@ import { ResultSetHeader } from "mysql2";
 // find as user's favorites, joined with product info
 export const findFavoritesByUser = async (userId : number): Promise<FavoriteWithProductRow[]> => {
     const [rows] = await pool.query<FavoriteWithProductRow[]>(
-        `SELECT favorites.*, products.name, products.slug, products.price, products.stock
+        `SELECT favorites.*, products.name, products.slug, products.description, products.price, products.stock
         FROM favorites
         JOIN products ON products.id = favorites.product_id
         WHERE favorites.user_id = ?
