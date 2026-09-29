@@ -10,6 +10,7 @@ import cartRoutes from "@/routers/cart.routes";
 import favoriteRoutes from "@/routers/favorite.routes";
 import reviewRoutes from "@/routers/review.routes";
 import orderRoutes from "@/routers/order.routes";
+import paymentRoutes from "@/routers/payment.routes";
 
 import { errorHandler } from "./middlewares/error.middleware";
 
@@ -35,6 +36,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.use(errorHandler) // must be last
 
